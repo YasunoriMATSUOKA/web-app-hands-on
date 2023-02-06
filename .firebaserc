@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "web-app-hands-on-ym-test",
+    "testnet": "web-app-hands-on-ym-test",
+    "mainnet": "web-app-hands-on-ym"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -71,6 +71,7 @@
     "cypress": "latest",
     "eslint": "^8.31.0",
     "eslint-plugin-storybook": "^0.6.10",
+    "firebase-tools": "^11.22.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

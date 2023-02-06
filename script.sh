@@ -41,6 +41,7 @@ npm i -D prettier eslint-config-prettier @typescript-eslint/eslint-plugin
     "esbenp.prettier-vscode"
   ]
 }
+# もしこれらのVSCodeの拡張機能を未インストールの場合はインストールしておく。
 
 # Cypress
 ng add @cypress/schematic
@@ -86,3 +87,42 @@ cypress/screenshots/*
 "e2e:lp": "ng run lp:cypress-open",
 "e2e:lp:ci": "ng run lp:cypress-run",
 "lint:lp": "ng lint --project=lp"
+
+# GitHubにレポジトリを作成してGitHubの表示内容に沿って初期コードをプッシュ
+# 最低限のセキュリティ設定としてブランチプロテクションルールを設定する
+
+# Firebaseのプロジェクトを作成(web-app-hands-on-<自由な名前>-test, web-app-hands-on-<自由な名前>)
+# Blazeプランにアップグレード
+# Storageをセキュリティルールを本番環境ルールでasia-northeast1ではじめる
+# FirestoreをDatastoreモードからネイティブモードに切り替えて(セキュリティルールを本番環境ルールで)はじめる
+
+# Firebase CLIのインストール
+npm i -D firebase-tools
+npx firebase --version
+
+# Firebase CLIでログイン
+npx firebase login
+
+# プロジェクト初期化 ... Realtime Database以外すべて選択
+npx firebase init
+
+# Firebase Functions
+# index.ts内のコメントアウトされた実装箇所を有効化
+# ESLintのルールを整備
+cd ./functions
+npm uninstall eslint-config-google
+npm i -D eslint-config-prettier
+# .eslintrc.json
+extendsから`"google"`を削除してextendsの最後に`,"prettier"`を追加
+`quotes: ["error", "double"],`を`quotes: ["error", "single"],`に変更
+# functions/tsconfig.jsonのcompilerOptionsに以下を追加
+"skipLibCheck": true,
+
+# functionsのテストをJestで環境構築
+cd ./functions
+npm i -D ts-jest @types/jest
+`./functions/src/index.spec.ts`ファイルにダミーのテストコードを書いて`npx jest`を実行してテストが走るか確認しておく
+
+# web-app-hands-on-<自由な名前>-test, web-app-hands-on-<自由な名前>というプロジェクトそれぞれにtestnet, mainnetというalias名をプロジェクトの名前として設定する
+npx firebase use --add
+# コマンドを実行後、インタラクティブにプロジェクトの選択と、alias名の入力を求められるのでそれぞれ実行する
