@@ -4,6 +4,33 @@
     "testnet": "web-app-hands-on-ym-test",
     "mainnet": "web-app-hands-on-ym"
   },
-  "targets": {},
+  "targets": {
+    "web-app-hands-on-ym-test": {
+      "hosting": {
+        "web": [
+          "web-app-hands-on-ym-test"
+        ],
+        "admin": [
+          "admin-web-app-hands-on-ym-test"
+        ],
+        "lp": [
+          "lp-web-app-hands-on-ym-test"
+        ]
+      }
+    },
+    "web-app-hands-on-ym": {
+      "hosting": {
+        "web": [
+          "web-app-hands-on-ym"
+        ],
+        "admin": [
+          "admin-web-app-hands-on-ym"
+        ],
+        "lp": [
+          "lp-web-app-hands-on-ym"
+        ]
+      }
+    }
+  },
   "etags": {}
 }
