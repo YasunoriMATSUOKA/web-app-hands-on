@@ -120,9 +120,22 @@ extendsから`"google"`を削除してextendsの最後に`,"prettier"`を追加
 
 # functionsのテストをJestで環境構築
 cd ./functions
-npm i -D ts-jest @types/jest
+npm i -D ts-jest @types/jest jest
 `./functions/src/index.spec.ts`ファイルにダミーのテストコードを書いて`npx jest`を実行してテストが走るか確認しておく
 
 # web-app-hands-on-<自由な名前>-test, web-app-hands-on-<自由な名前>というプロジェクトそれぞれにtestnet, mainnetというalias名をプロジェクトの名前として設定する
 npx firebase use --add
 # コマンドを実行後、インタラクティブにプロジェクトの選択と、alias名の入力を求められるのでそれぞれ実行する
+
+# CI/CD構築 GitHub Actionsのymlファイルを作成
+
+# GitHub ActionsのEnvironmentsにtestnet, mainnetの2種類のEnvironmentを作成
+
+# FIREBASE_TOKENを取得してGitHubのEnvironmentのSecretsに登録
+npx firebase use testnet
+npx firebase login:ci
+# 生成されたトークンをGitHubのEnvironmentがtestnetのSecretsに登録
+
+npx firebase use mainnet
+npx firebase login:ci
+# 生成されたトークンをGitHubのEnvironmentがmainnetのSecretsに登録

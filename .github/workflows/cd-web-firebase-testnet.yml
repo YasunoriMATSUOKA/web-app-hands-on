@@ -29,7 +29,7 @@ jobs:
             ./functions/package-lock.json
       - run: npm ci
       - run: npm run build:web
-      - run: npm run test:web
+      - run: npm run test:web -- --browsers=ChromeHeadless --no-watch --no-progress
       - run: npm run e2e:web:ci
       - run: npm ci
         working-directory: ./functions
