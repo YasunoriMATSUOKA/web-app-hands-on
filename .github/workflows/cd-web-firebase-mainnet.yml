@@ -23,6 +23,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             package-lock.json
+            ./functions/package-lock.json
       - run: npm ci
       - run: npm run build:web
       - run: npm run test:web -- --browsers=ChromeHeadless --no-watch --no-progress
