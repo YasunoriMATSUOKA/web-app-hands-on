@@ -1,7 +1,8 @@
 # Windows等でのgitのCRLF<->LF変換の設定
 git config --global core.autocrlf input
 
-# Node.jsのインストールをvoltaで行う
+# もしまだNode.jsがインストールされていなかったらNode.jsのインストールが必要
+# voltaで行う手順を参考に示しておきます。既に別の方法でインストール済等の場合はこの操作は不要です。(もしvoltaを試したい場合は、既にインストール済のNode.jsをきれいにアンインストールしてから試しましょう。)
 curl https://get.volta.sh | bash
 volta install node@18
 node -v
@@ -139,3 +140,35 @@ npx firebase login:ci
 npx firebase use mainnet
 npx firebase login:ci
 # 生成されたトークンをGitHubのEnvironmentがmainnetのSecretsに登録
+
+# project=webのCI/CDを一通り試す
+
+# admin, lpのサイトのデプロイのためのCDや設定( 参考リンク: https://qiita.com/zaburo/items/f0fc863d1eb24cfe5cca )
+# FirebaseのWeb ConsoleのFirebase Hostingの画面(下の方)からlp, admin用の別サイトを登録し、ターミナルからCLIでtargetを指定
+testnet
+既に登録済のWebアプリ web-app-hands-on-<自由な名前>-test
+新たに登録する管理者用Webアプリ admin-web-app-hands-on-<自由な名前>-test
+新たに登録するLP用Webアプリ lp-web-app-hands-on-<自由な名前>-test
+
+以下コマンド実行
+npx firebase use testnet
+npx firebase target:apply hosting web web-app-hands-on-<自由な名前>-test
+npx firebase target:apply hosting admin admin-web-app-hands-on-<自由な名前>-test
+npx firebase target:apply hosting lp lp-web-app-hands-on-<自由な名前>-test
+
+mainnet
+既に登録済のWebアプリ web-app-hands-on-<自由な名前>
+新たに登録する管理者用Webアプリ admin-web-app-hands-on-<自由な名前>
+新たに登録するLP用Webアプリ lp-web-app-hands-on-<自由な名前>
+
+以下コマンド実行
+npx firebase use mainnet
+npx firebase target:apply hosting web web-app-hands-on-<自由な名前>
+npx firebase target:apply hosting admin admin-web-app-hands-on-<自由な名前>
+npx firebase target:apply hosting lp lp-web-app-hands-on-<自由な名前>
+
+# .firebasercのprojectとtargetの対応関係が意図通り設定されているか確認し、不適切な場合は修正
+
+# firebase.jsonのhostingに設定したtargetに関する設定を追加 ... この手動対応が必要だが忘れやすいので注意。
+
+# CI追加 ... GitHub Actionsのymlファイルを追加して、testnet, mainnetそれぞれのweb, admin, lpそれぞれのwebアプリのビルド、ユニットテスト、E2Eテスト
