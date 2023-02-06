@@ -1,9 +1,6 @@
 name: CI Web Angular Test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
@@ -25,4 +22,4 @@ jobs:
           cache-dependency-path: |
             package-lock.json
       - run: npm ci
-      - run: npm run test:web -- --no-watch --no-progress
+      - run: npm run test:web -- --browsers=ChromeHeadless --no-watch --no-progress

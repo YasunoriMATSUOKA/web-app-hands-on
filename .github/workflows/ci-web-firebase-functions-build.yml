@@ -1,9 +1,6 @@
 name: CI Web Firebase Functions Build
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
