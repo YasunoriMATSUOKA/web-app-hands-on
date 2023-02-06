@@ -20,6 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: |
-            package-lock.json
-      - run: npm ci --prefix ./functions
-      - run: npm run --prefix ./functions build
+            ./functions/package-lock.json
+      - run: npm ci
+        working-directory: ./functions
+      - run: npm run build
+        working-directory: ./functions
