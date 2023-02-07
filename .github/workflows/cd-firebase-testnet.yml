@@ -1,6 +1,9 @@
-name: CD Web Firebase Mainnet
+name: CD Firebase Testnet
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -113,7 +116,7 @@ jobs:
       - run: npm run e2e:lp:ci
 
   firebase-functions-test:
-    name: Pre-Deploy Check LP Angular E2E
+    name: Pre-Deploy Check Firebase Functions Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -132,8 +135,8 @@ jobs:
       - run: npm run test
         working-directory: ./functions
 
-  deploy-mainnet:
-    name: Deploy Firebase Mainnet
+  deploy-testnet:
+    name: Deploy Firebase Testnet
     needs:
       - web-angular-test
       - web-angular-e2e
@@ -144,7 +147,7 @@ jobs:
       - firebase-functions-test
     runs-on: ubuntu-latest
     environment:
-      name: mainnet
+      name: testnet
     strategy:
       matrix:
         node-version: [16.x]
@@ -166,4 +169,4 @@ jobs:
         working-directory: ./functions
       - run: npm run build
         working-directory: ./functions
-      - run: npx firebase deploy --project=mainnet --token=${{ secrets.FIREBASE_TOKEN }} --force
+      - run: npx firebase deploy --project=testnet --token=${{ secrets.FIREBASE_TOKEN }} --force
