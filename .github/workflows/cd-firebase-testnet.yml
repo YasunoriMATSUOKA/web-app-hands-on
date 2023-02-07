@@ -8,7 +8,7 @@ on:
 
 jobs:
   web-angular-test:
-    name: Pre-Deploy Check Web Angular Test
+    name: Web Angular Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,7 +26,7 @@ jobs:
       - run: npm run test:web -- --browsers=ChromeHeadless --no-watch
 
   web-angular-e2e:
-    name: Pre-Deploy Check Web Angular E2E
+    name: Web Angular E2E
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
       - run: npm run e2e:web:ci
 
   admin-angular-test:
-    name: Pre-Deploy Check Admin Angular Test
+    name: Admin Angular Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -62,7 +62,7 @@ jobs:
       - run: npm run test:admin -- --browsers=ChromeHeadless --no-watch
 
   admin-angular-e2e:
-    name: Pre-Deploy Check Admin Angular E2E
+    name: Admin Angular E2E
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -80,7 +80,7 @@ jobs:
       - run: npm run e2e:admin:ci
 
   lp-angular-test:
-    name: Pre-Deploy Check LP Angular Test
+    name: LP Angular Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -98,7 +98,7 @@ jobs:
       - run: npm run test:lp -- --browsers=ChromeHeadless --no-watch
 
   lp-angular-e2e:
-    name: Pre-Deploy Check LP Angular E2E
+    name: LP Angular E2E
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -116,7 +116,7 @@ jobs:
       - run: npm run e2e:lp:ci
 
   firebase-functions-test:
-    name: Pre-Deploy Check Firebase Functions Test
+    name: Firebase Functions Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
