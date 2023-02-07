@@ -26,6 +26,12 @@ ng generate application lp --routing=true --style=scss --inline-style --inline-t
 # prettier
 npm i -D prettier eslint-config-prettier @typescript-eslint/eslint-plugin
 
+# .prettierrc.jsonを作成して以下のように(内容は一例。お好みで。)
+{
+  "printWidth": 120,
+  "singleQuote": true,
+}
+
 # .vscode/settings.jsonを作成して以下のように
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -60,6 +66,8 @@ specPattern: 'projects/admin/cypress/e2e/**/*.cy.ts',
 # projects/lp/cypress.config.tsのe2eに以下を追加
 supportFile: 'projects/lp/cypress/support/e2e.ts',
 specPattern: 'projects/lp/cypress/e2e/**/*.cy.ts',
+
+# 各プロジェクト毎に生成されたcypressディレクトリ直下のtsconfigの参照先tsconfigファイルのファイル名を正しいものに修正
 
 # .gitignoreにCypress向けに以下を追記
 # Cypress
