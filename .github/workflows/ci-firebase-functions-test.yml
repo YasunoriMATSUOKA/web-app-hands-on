@@ -1,4 +1,4 @@
-name: CI Web Firebase Functions Test
+name: CI Firebase Functions Test
 
 on:
   pull_request:

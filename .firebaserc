@@ -1,33 +1,34 @@
 {
   "projects": {
-    "default": "web-app-hands-on-ym-test",
-    "testnet": "web-app-hands-on-ym-test",
-    "mainnet": "web-app-hands-on-ym"
+    "default": "web-app-hands-on-pre-test",
+    "testnet": "web-app-hands-on-pre-test",
+    "mainnet": "web-app-hands-on-pre"
   },
   "targets": {
-    "web-app-hands-on-ym-test": {
+    "web-app-hands-on-pre-test": {
       "hosting": {
         "web": [
-          "web-app-hands-on-ym-test"
+          "web-app-hands-on-pre-test"
         ],
         "admin": [
-          "admin-web-app-hands-on-ym-test"
+          "admin-web-app-hands-on-pre-test"
         ],
         "lp": [
-          "lp-web-app-hands-on-ym-test"
+          "lp-web-app-hands-on-lp-test",
+          "lp-web-app-hands-on-pre-test"
         ]
       }
     },
-    "web-app-hands-on-ym": {
+    "web-app-hands-on-pre": {
       "hosting": {
         "web": [
-          "web-app-hands-on-ym"
+          "web-app-hands-on-pre"
         ],
         "admin": [
-          "admin-web-app-hands-on-ym"
+          "admin-web-app-hands-on-pre"
         ],
         "lp": [
-          "lp-web-app-hands-on-ym"
+          "lp-web-app-hands-on-pre"
         ]
       }
     }

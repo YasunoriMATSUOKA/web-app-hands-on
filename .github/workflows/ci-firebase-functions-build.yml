@@ -1,4 +1,4 @@
-name: CI Web Firebase Functions Build
+name: CI Firebase Functions Build
 
 on:
   pull_request:
