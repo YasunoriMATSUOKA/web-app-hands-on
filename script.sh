@@ -50,6 +50,10 @@ npm i -D prettier eslint-config-prettier @typescript-eslint/eslint-plugin
 }
 # もしこれらのVSCodeの拡張機能を未インストールの場合はインストールしておく。
 
+# ESLintがAngularのJasmine向けのtsconfig.spec.jsonを認識できていないようで、AngularのJasmineのspec.tsファイル内のexpect等がESLintを通じてJasmineではなくCypressのChaiのexpectとして型推論されてしまう問題がある
+# projects/admin, projects/lp, projects/webの各ディレクトリのtsconfig.spec.jsonをコピーしてtsconfig.jsonファイルを作り、
+# そのファイルのextends元を同ディレクトリのtsconfig.app.jsonにしてやることでESLintが適切なAngularのbuild, (Jasmineを使った)test双方に有効な型推論を行えるようにする
+
 # Cypress
 ng add @cypress/schematic
 
@@ -69,6 +73,18 @@ specPattern: 'projects/lp/cypress/e2e/**/*.cy.ts',
 
 # 各プロジェクト毎に生成されたcypressディレクトリ直下のtsconfigの参照先tsconfigファイルのファイル名を正しいものに修正
 
+# Cypressのデフォルトのコードで以下のLintエラーが出るので
+# Linting "admin"...
+# C:\Users\yasun\src\github.com\nemtus\web-app-hands-on\projects\admin\cypress\support\component.ts
+#   29:3  error  ES2015 module syntax is preferred over namespaces  @typescript-eslint/no-namespace
+# 各プロジェクトのcypressのディレクトリに`.eslintrc.json`を作成し、以下のように記述
+{
+  "extends": "../../../.eslintrc.json",
+  "rules": {
+    "@typescript-eslint/no-namespace": "off"
+  }
+}
+
 # .gitignoreにCypress向けに以下を追記
 # Cypress
 cypress/videos/*
@@ -78,7 +94,8 @@ cypress/screenshots/*
 "start:web": "ng serve --project=web",
 "build:web": "ng build --project=web --configuration=production",
 "watch:web": "ng build --project=web --watch --configuration development",
-"test:web": "ng test --project=web",
+"test:web": "ng test --project=web --code-coverage",
+"test:web:ci": "ng test --project=web --browsers=ChromeHeadless --no-watch --no-progress --code-coverage",
 "e2e:web": "ng run web:cypress-open",
 "e2e:web:ci": "ng run web:cypress-run",
 "lint:web": "ng lint --project=web",
@@ -86,6 +103,7 @@ cypress/screenshots/*
 "build:admin": "ng build --project=admin --configuration=production",
 "watch:admin": "ng build --project=admin --watch --configuration development",
 "test:admin": "ng test --project=admin",
+"test:admin:ci": "ng test --project=admin --browsers=ChromeHeadless --no-watch --no-progress --code-coverage",
 "e2e:admin": "ng run admin:cypress-open",
 "e2e:admin:ci": "ng run admin:cypress-run",
 "lint:admin": "ng lint --project=admin",
@@ -93,6 +111,7 @@ cypress/screenshots/*
 "build:lp": "ng build --project=lp --configuration=production",
 "watch:lp": "ng build --project=lp --watch --configuration development",
 "test:lp": "ng test --project=lp",
+"test:lp:ci": "ng test --project=lp --browsers=ChromeHeadless --no-watch --no-progress --code-coverage",
 "e2e:lp": "ng run lp:cypress-open",
 "e2e:lp:ci": "ng run lp:cypress-run",
 "lint:lp": "ng lint --project=lp"
@@ -180,3 +199,7 @@ npx firebase target:apply hosting lp lp-web-app-hands-on-<自由な名前>
 # firebase.jsonのhostingに設定したtargetに関する設定を追加 ... この手動対応が必要だが忘れやすいので注意。
 
 # CI追加 ... GitHub Actionsのymlファイルを追加して、testnet, mainnetそれぞれのweb, admin, lpそれぞれのwebアプリのビルド、ユニットテスト、E2Eテスト
+
+# Testing Library
+# https://testing-library.com/docs/angular-testing-library/intro
+npm i -D @testing-library/angular

@@ -23,7 +23,7 @@ jobs:
           cache-dependency-path: |
             package-lock.json
       - run: npm ci
-      - run: npm run test:web -- --browsers=ChromeHeadless --no-watch
+      - run: npm run test:web:ci
 
   web-angular-e2e:
     name: Web Angular E2E
@@ -59,7 +59,7 @@ jobs:
           cache-dependency-path: |
             package-lock.json
       - run: npm ci
-      - run: npm run test:admin -- --browsers=ChromeHeadless --no-watch
+      - run: npm run test:admin:ci
 
   admin-angular-e2e:
     name: Admin Angular E2E
@@ -95,7 +95,7 @@ jobs:
           cache-dependency-path: |
             package-lock.json
       - run: npm ci
-      - run: npm run test:lp -- --browsers=ChromeHeadless --no-watch
+      - run: npm run test:lp:ci
 
   lp-angular-e2e:
     name: LP Angular E2E
