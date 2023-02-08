@@ -10,6 +10,6 @@ describe('HomeComponent', () => {
 
   it('should render title', async () => {
     await render(HomeComponent);
-    expect(screen.getAllByText('home is working!').length).toBe(1);
+    expect(screen.getAllByText('home works!').length).toBe(1);
   });
 });
