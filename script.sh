@@ -214,3 +214,12 @@ ng generate component pages/home --project=admin --prefix=app-page --standalone 
 
 # /projects/admin/src/app/app/app.component.spec.tsをtesting-libraryを使用して簡略化
 # /projects/admin/src/app/pages/home/home.component.spec.tsをtesting-libraryを使用して簡略化
+
+# 実装
+ng generate component views/home --project=web --prefix=app-view --standalone --inline-template --inline-style
+ng generate component pages/users/user --project=web --prefix=app-page --standalone --inline-template --inline-style
+ng generate component views/users/user --project=web --prefix=app-view --standalone --inline-template --inline-style
+ng generate class services/user/user --project=web --type=model
+ng generate service services/user/user --project=web
+ng generate service services/user/user-infrastructure --project=web
+# 手動でprojects/web/src/app/services/user/user.mock.tsを作成
