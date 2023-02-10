@@ -2,20 +2,22 @@ import { render, screen } from '@testing-library/angular';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  it('should create the app', async () => {
+  let component: AppComponent;
+
+  beforeEach(async () => {
     const { fixture } = await render(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    component = fixture.componentInstance;
+  });
+
+  it('should create the app', async () => {
+    expect(component).toBeTruthy();
   });
 
   it(`should have as title 'admin'`, async () => {
-    const { fixture } = await render(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('admin');
+    expect(component.title).toEqual('admin');
   });
 
   it('should render title', async () => {
-    await render(AppComponent);
-    expect(screen.getAllByText('admin app is running!').length).toBe(1);
+    expect(screen.getByText('admin app is running!')).toBeTruthy();
   });
 });

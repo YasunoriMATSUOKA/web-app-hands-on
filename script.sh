@@ -203,3 +203,14 @@ npx firebase target:apply hosting lp lp-web-app-hands-on-<自由な名前>
 # Testing Library
 # https://testing-library.com/docs/angular-testing-library/intro
 npm i -D @testing-library/angular
+
+# rootコンポーネントをStandalone component化
+# routingをapp.routes.tsに集約
+# Standalone componentにあわせたmain.tsでのアプリケーションのbootstrap
+
+# /projects/admin/src/app/pages/home/home.component.ts, home.component.spec.tsファイルの生成
+ng generate component pages/home --project=admin --prefix=app-page --standalone --inline-template --inline-style
+# 他プロジェクトでも同様に
+
+# /projects/admin/src/app/app/app.component.spec.tsをtesting-libraryを使用して簡略化
+# /projects/admin/src/app/pages/home/home.component.spec.tsをtesting-libraryを使用して簡略化
