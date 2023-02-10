@@ -138,24 +138,6 @@
               "devServerTarget": "web:serve:production"
             }
           }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "web:build",
-            "compodoc": false,
-            "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "web:build",
-            "compodoc": false,
-            "outputDir": "dist/storybook/web"
-          }
         }
       }
     },
@@ -293,24 +275,6 @@
             "production": {
               "devServerTarget": "admin:serve:production"
             }
-          }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "admin:build",
-            "compodoc": false,
-            "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "admin:build",
-            "compodoc": false,
-            "outputDir": "dist/storybook/admin"
           }
         }
       }
@@ -450,29 +414,12 @@
               "devServerTarget": "lp:serve:production"
             }
           }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "lp:build",
-            "compodoc": false,
-            "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "lp:build",
-            "compodoc": false,
-            "outputDir": "dist/storybook/lp"
-          }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": ["@cypress/schematic", "@angular-eslint/schematics", "@schematics/angular"]
+    "schematicCollections": ["@angular-eslint/schematics", "@schematics/angular"],
+    "analytics": false
   }
 }
