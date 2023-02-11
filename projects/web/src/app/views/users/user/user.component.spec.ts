@@ -40,6 +40,7 @@ describe('UserComponent', () => {
     expect(screen.getByText(`name: ${EXISTING_USER_NORMAL.name}`)).toBeTruthy();
     expect(screen.getByText(`photoUrl: ${EXISTING_USER_NORMAL.photoUrl}`)).toBeTruthy();
     expect(screen.getByText(`bio: ${EXISTING_USER_NORMAL.bio}`)).toBeTruthy();
+    expect(screen.getByText(`provider: ${EXISTING_USER_NORMAL.provider}`)).toBeTruthy();
     expect(screen.getByText(`google: ${EXISTING_USER_NORMAL.google}`)).toBeTruthy();
     expect(screen.getByText(`twitter: ${EXISTING_USER_NORMAL.twitter}`)).toBeTruthy();
     expect(screen.getByText(`github: ${EXISTING_USER_NORMAL.github}`)).toBeTruthy();
