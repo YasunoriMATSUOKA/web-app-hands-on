@@ -13,6 +13,7 @@ import { User } from '../../../services/user/user.model';
       <p>name: {{ user.name }}</p>
       <p>photoUrl: {{ user.photoUrl }}</p>
       <p>bio: {{ user.bio }}</p>
+      <p>provider: {{ user.provider }}</p>
       <p>google: {{ user.google }}</p>
       <p>twitter: {{ user.twitter }}</p>
       <p>github: {{ user.github }}</p>
