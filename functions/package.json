@@ -6,7 +6,6 @@
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
     "emulate": "firebase emulators:start --only auth,firestore,storage,pubsub,functions --import=emulator --export-on-exit",
-    "preemulate": "kill -s TERM $(lsof -t -i:8085); sleep 1",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "test": "jest",

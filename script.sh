@@ -219,7 +219,18 @@ ng generate component pages/home --project=admin --prefix=app-page --standalone 
 ng generate component views/home --project=web --prefix=app-view --standalone --inline-template --inline-style
 ng generate component pages/users/user --project=web --prefix=app-page --standalone --inline-template --inline-style
 ng generate component views/users/user --project=web --prefix=app-view --standalone --inline-template --inline-style
-ng generate class services/user/user --project=web --type=model
 ng generate service services/user/user --project=web
 ng generate service services/user/user-infrastructure --project=web
 # 手動でprojects/web/src/app/services/user/user.mock.tsを作成
+# 手動でprojects/web/src/app/services/user/user.type.tsを作成
+
+# user.type.tsを実装
+
+# 型ガード関数の自動生成で使用するtype-predicates-generatorをインストール
+# npm i -D type-predicates-generator
+# 参考にさせて頂いた記事リンク https://zenn.dev/kimuson/articles/type_predicates_generator
+
+# firebase functions関連の実装
+# Emulatorで起動確認
+
+ng g service services/auth/auth --project=web
