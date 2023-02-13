@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { UserInfrastructureService } from './user-infrastructure.service';
-import { User } from './user.model';
-import { EXISTING_USER_NORMAL } from './user.mock';
+import { User } from './user.type';
+import { USER_NORMAL } from './user.mock';
 
 describe('UserInfrastructureService', () => {
   let service: UserInfrastructureService;
@@ -29,7 +29,7 @@ describe('UserInfrastructureService', () => {
 
   it('should return Observable EXISTING_USER_NORMAL', () => {
     service.fetchUser$('testId').subscribe((user) => {
-      expect(user).toEqual(new User(EXISTING_USER_NORMAL));
+      expect(user).toEqual(USER_NORMAL);
     });
   });
 });
