@@ -1,8 +1,8 @@
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { render } from '@testing-library/angular';
 import { of } from 'rxjs';
-import { EXISTING_USER_NORMAL } from '../../../services/user/user.mock';
-import { User } from '../../../services/user/user.model';
+import { USER_NORMAL } from '../../../services/user/user.mock';
+import { User } from '../../../services/user/user.type';
 import { UserComponent } from './user.component';
 
 describe('UserComponent', () => {
@@ -40,7 +40,7 @@ describe('UserComponent', () => {
     });
     component = fixture.componentInstance;
     component.user$.subscribe((user) => {
-      expect(user).toEqual(new User(EXISTING_USER_NORMAL));
+      expect(user).toEqual(USER_NORMAL);
     });
   });
 
