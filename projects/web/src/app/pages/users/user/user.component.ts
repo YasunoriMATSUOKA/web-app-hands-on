@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../services/user/user.service';
-import { map, mergeMap, Observable, of, tap } from 'rxjs';
-import { User } from '../../../services/user/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { map, mergeMap, Observable, of } from 'rxjs';
+import { UserService } from '../../../services/user/user.service';
+import { User } from '../../../services/user/user.type';
 import { ViewUserComponent } from '../../../views/users/user/user.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { render, RenderResult, screen } from '@testing-library/angular';
-import { EXISTING_USER_NORMAL } from '../../../services/user/user.mock';
-import { User } from '../../../services/user/user.model';
+import { USER_NORMAL } from '../../../services/user/user.mock';
+import { User } from '../../../services/user/user.type';
 import { ViewUserComponent } from './user.component';
 
 describe('UserComponent', () => {
@@ -33,16 +33,16 @@ describe('UserComponent', () => {
   });
 
   it('should render user info with EXISTING_USER_NORMAL', () => {
-    component.user = new User(EXISTING_USER_NORMAL);
+    component.user = USER_NORMAL;
     fixture.autoDetectChanges();
     expect(screen.getByText('User')).toBeTruthy();
-    expect(screen.getByText(`id: ${EXISTING_USER_NORMAL.id}`)).toBeTruthy();
-    expect(screen.getByText(`name: ${EXISTING_USER_NORMAL.name}`)).toBeTruthy();
-    expect(screen.getByText(`photoUrl: ${EXISTING_USER_NORMAL.photoUrl}`)).toBeTruthy();
-    expect(screen.getByText(`bio: ${EXISTING_USER_NORMAL.bio}`)).toBeTruthy();
-    expect(screen.getByText(`provider: ${EXISTING_USER_NORMAL.provider}`)).toBeTruthy();
-    expect(screen.getByText(`google: ${EXISTING_USER_NORMAL.google}`)).toBeTruthy();
-    expect(screen.getByText(`twitter: ${EXISTING_USER_NORMAL.twitter}`)).toBeTruthy();
-    expect(screen.getByText(`github: ${EXISTING_USER_NORMAL.github}`)).toBeTruthy();
+    expect(screen.getByText(`id: ${USER_NORMAL.id}`)).toBeTruthy();
+    expect(screen.getByText(`name: ${USER_NORMAL.name}`)).toBeTruthy();
+    expect(screen.getByText(`photoUrl: ${USER_NORMAL.photoUrl}`)).toBeTruthy();
+    expect(screen.getByText(`bio: ${USER_NORMAL.bio}`)).toBeTruthy();
+    expect(screen.getByText(`provider: ${USER_NORMAL.provider}`)).toBeTruthy();
+    expect(screen.getByText(`google: ${USER_NORMAL.google}`)).toBeTruthy();
+    expect(screen.getByText(`twitter: ${USER_NORMAL.twitter}`)).toBeTruthy();
+    expect(screen.getByText(`github: ${USER_NORMAL.github}`)).toBeTruthy();
   });
 });

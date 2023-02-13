@@ -2,29 +2,16 @@ import { DocumentSnapshot } from 'firebase-functions/lib/v1/providers/firestore'
 import { db } from '../../../utils/firebase';
 import { converter } from '../../../utils/firebase/converter';
 import { firestorePath } from '../path';
-import {
-  BaseUser,
-  NewUser,
-  User,
-  BaseUserUpdate,
-  UserUpdate,
-} from '../../../../../projects/web/src/app/services/user/user.type';
+import { BaseUser, NewUser, User, BaseUserUpdate, UserUpdate } from './type';
 import {
   assertIsBaseUser,
   assertIsNewUser,
   assertIsUser,
   assertIsBaseUserUpdate,
   assertIsUserUpdate,
-  // eslint-disable-next-line import/namespace
-} from '../../../../../projects/web/src/app/predicates/type.predicate';
+} from '../type.predicates';
 
-export {
-  BaseUser,
-  NewUser,
-  User,
-  BaseUserUpdate,
-  UserUpdate,
-} from '../../../../../projects/web/src/app/services/user/user.type';
+export { BaseUser, NewUser, User, BaseUserUpdate, UserUpdate } from './type';
 
 export type Users = User[];
 
