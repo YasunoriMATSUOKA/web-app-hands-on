@@ -5,6 +5,19 @@ import { USER_NORMAL } from '../../../services/user/user.mock';
 import { User } from '../../../services/user/user.type';
 import { UserComponent } from './user.component';
 
+const renderPattern = [
+  { case: 'userId = null', userId: null, user: null },
+  { case: 'userId = undefined', userId: undefined, user: undefined },
+  { case: 'userId = ""', userId: '', user: undefined },
+  { case: 'userId = "testId"', userId: 'testId', user: USER_NORMAL },
+];
+
+const userComponentRenderHelper = async (userId: string | null | undefined) => {
+  await render(UserComponent, {
+    providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId })) } }],
+  });
+};
+
 describe('UserComponent', () => {
   let component: UserComponent;
 

@@ -1,39 +1,48 @@
 import { Injectable } from '@angular/core';
-import {
-  Auth,
-  signInWithRedirect,
-  GoogleAuthProvider,
-  signOut as firebaseSignOut,
-  authState,
-} from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserCredential, User } from '@angular/fire/auth';
+import { AuthInfrastructureService } from './auth-infrastructure.service';
+
+export interface AuthInfrastructureServiceInterface {
+  signInWithGooglePopup: () => Promise<void>;
+  signInWithGoogleRedirect: () => Promise<void>;
+  getRedirectResult: () => Promise<UserCredential | null>;
+  signOut: () => Promise<void>;
+  isSignIn: () => boolean;
+  fetchAuthState$: () => Observable<User | null>;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: Auth, private router: Router) {}
+  private authInfrastructureServiceInterface: AuthInfrastructureServiceInterface;
 
-  async signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    await signInWithRedirect(this.afAuth, provider);
-    const uid = this.afAuth.currentUser?.uid;
-    if (!uid) {
-      window.alert('ログインに失敗しました。');
-    }
-    this.router.navigate(['users', uid]);
+  constructor(authInfrastructureService: AuthInfrastructureService) {
+    this.authInfrastructureServiceInterface = authInfrastructureService;
   }
 
-  async signOut() {
-    await firebaseSignOut(this.afAuth);
-    this.router.navigate(['/']);
+  async signInWithGooglePopup(): Promise<void> {
+    return this.authInfrastructureServiceInterface.signInWithGooglePopup();
   }
 
-  isSignIn() {
-    return this.afAuth.currentUser !== null;
+  async signInWithGoogleRedirect(): Promise<void> {
+    return this.authInfrastructureServiceInterface.signInWithGoogleRedirect();
   }
 
-  fetchAuthState$() {
-    return authState(this.afAuth);
+  async getRedirectResult(): Promise<UserCredential | null> {
+    return this.authInfrastructureServiceInterface.getRedirectResult();
+  }
+
+  async signOut(): Promise<void> {
+    return this.authInfrastructureServiceInterface.signOut();
+  }
+
+  isSignIn(): boolean {
+    return this.authInfrastructureServiceInterface.isSignIn();
+  }
+
+  fetchAuthState$(): Observable<User | null> {
+    return this.authInfrastructureServiceInterface.fetchAuthState$();
   }
 }
