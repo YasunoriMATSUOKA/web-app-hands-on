@@ -31,9 +31,6 @@ export class AuthInfrastructureService implements AuthInfrastructureServiceInter
 
   async getRedirectResult(): Promise<UserCredential | null> {
     return await firebaseGetRedirectResult(this.afAuth).then((userCredential) => {
-      userCredential?.operationType;
-      userCredential?.user;
-      userCredential?.providerId;
       return userCredential;
     });
   }

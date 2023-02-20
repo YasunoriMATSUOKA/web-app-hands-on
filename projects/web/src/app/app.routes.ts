@@ -13,4 +13,15 @@ export const APP_ROUTES: Routes = [
     loadComponent: () => import('./pages/users/user/user.component').then((x) => x.UserComponent),
     canActivate: [AuthGuard, AuthUserGuard],
   },
+  {
+    path: 'users/:userId/accounts/create',
+    loadComponent: () => import('./pages/users/user/accounts/create/create.component').then((x) => x.CreateComponent),
+    canActivate: [AuthGuard, AuthUserGuard],
+  },
+  {
+    path: 'users/:userId/accounts/:accountId',
+    loadComponent: () =>
+      import('./pages/users/user/accounts/account/account.component').then((x) => x.AccountComponent),
+    canActivate: [AuthGuard, AuthUserGuard],
+  },
 ];

@@ -234,3 +234,6 @@ ng generate service services/user/user-infrastructure --project=web
 # Emulatorで起動確認
 
 ng g service services/auth/auth --project=web
+ng g service services/auth/auth-infrastructure --project=web
+# 手動でprojects/web/src/app/services/auth/auth.mock.tsを作成
+# 手動でprojects/web/src/app/services/auth/auth.type.tsを作成

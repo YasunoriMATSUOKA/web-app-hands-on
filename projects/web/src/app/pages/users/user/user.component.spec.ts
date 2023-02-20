@@ -1,79 +1,161 @@
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { render } from '@testing-library/angular';
 import { of } from 'rxjs';
-import { USER_NORMAL } from '../../../services/user/user.mock';
+import { createRandomUser } from '../../../services/user/user.mock';
+import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../services/user/user.type';
 import { UserComponent } from './user.component';
 
-const renderPattern = [
-  { case: 'userId = null', userId: null, user: null },
-  { case: 'userId = undefined', userId: undefined, user: undefined },
-  { case: 'userId = ""', userId: '', user: undefined },
-  { case: 'userId = "testId"', userId: 'testId', user: USER_NORMAL },
+const GOOGLE_USER_NORMAL = createRandomUser('google');
+const TWITTER_USER_NORMAL = createRandomUser('twitter');
+const GITHUB_USER_NORMAL = createRandomUser('github');
+const renderPatterns = [
+  { case: 'userId = null', id: null, user: null },
+  { case: 'userId = undefined', id: undefined, user: undefined },
+  { case: 'userId = ""', id: '', user: undefined },
+  { case: 'google user', id: GOOGLE_USER_NORMAL.id, user: GOOGLE_USER_NORMAL },
+  { case: 'twitter user', id: TWITTER_USER_NORMAL.id, user: TWITTER_USER_NORMAL },
+  { case: 'github user', id: GITHUB_USER_NORMAL.id, user: GITHUB_USER_NORMAL },
 ];
 
-const userComponentRenderHelper = async (userId: string | null | undefined) => {
-  await render(UserComponent, {
-    providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId })) } }],
+const userComponentRenderHelper = async (renderPattern: {
+  case: string;
+  id: string | null | undefined;
+  user: User | null | undefined;
+}) => {
+  return await render(UserComponent, {
+    componentProviders: [
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          paramMap: of(convertToParamMap({ userId: renderPattern.id })),
+        },
+      },
+      {
+        provide: UserService,
+        useValue: {
+          fetchUser$: (id: string | null | undefined) => {
+            if (id === renderPattern.id) {
+              return of(renderPattern.user);
+            }
+            if (id === null) {
+              return of(null);
+            }
+            if (!id) {
+              return of(undefined);
+            }
+            throw Error(`Unexpected id: ${id}`);
+          },
+        },
+      },
+    ],
   });
 };
 
 describe('UserComponent', () => {
   let component: UserComponent;
 
-  it('should create', async () => {
-    const { fixture } = await render(UserComponent);
+  for (const renderPattern of renderPatterns) {
+    it(`should create with case ${renderPattern.case}`, async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPattern);
+
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      expect(component).toBeTruthy();
+    });
+  }
+
+  it('should create with undefined userId', async () => {
+    // Arrange
+    const { fixture } = await userComponentRenderHelper(renderPatterns[1]);
+
+    // Act
     component = fixture.componentInstance;
+
+    // Assert
     expect(component).toBeTruthy();
   });
 
-  it('user$ should be Observable null with userId="null"', async () => {
-    const { fixture } = await render(UserComponent, {
-      providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: 'null' })) } }],
-    });
-    component = fixture.componentInstance;
-    component.user$.subscribe((user) => {
-      expect(user).toBeNull();
-    });
-  });
+  describe('user$', () => {
+    it('should be Observable null with null userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[0]);
 
-  it('user$ should be Observable null with userId="undefined"', async () => {
-    const { fixture } = await render(UserComponent, {
-      providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: 'undefined' })) } }],
-    });
-    component = fixture.componentInstance;
-    component.user$.subscribe((user) => {
-      expect(user).toBeUndefined();
-    });
-  });
+      // Act
+      component = fixture.componentInstance;
 
-  it('user$ should be Observable EXISTING_USER with userId="testId"', async () => {
-    const { fixture } = await render(UserComponent, {
-      providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: 'testId' })) } }],
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toBeNull();
+      });
     });
-    component = fixture.componentInstance;
-    component.user$.subscribe((user) => {
-      expect(user).toEqual(USER_NORMAL);
-    });
-  });
 
-  it('user$ should be Observable undefined with userId=null', async () => {
-    const { fixture } = await render(UserComponent, {
-      providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: null })) } }],
-    });
-    component = fixture.componentInstance;
-    component.user$.subscribe((user) => {
-      expect(user).toBeUndefined();
-    });
-  });
+    it('should be Observable undefined with undefined userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[1]);
 
-  it('user$ should be Observable undefined with userId=undefined', async () => {
-    const { fixture } = await render(UserComponent, {
-      providers: [{ provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ userId: undefined })) } }],
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toBeUndefined();
+      });
     });
-    component = fixture.componentInstance;
-    component.user$.subscribe((user) => {
-      expect(user).toBeUndefined();
+
+    it('should be Observable undefined with "" userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[2]);
+
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toBeUndefined();
+      });
+    });
+
+    it('should be Observable google User with google userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[3]);
+
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toEqual(renderPatterns[3].user);
+      });
+    });
+
+    it('should be Observable twitter User with twitter userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[4]);
+
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toEqual(renderPatterns[4].user);
+      });
+    });
+
+    it('should be Observable github User with github userId', async () => {
+      // Arrange
+      const { fixture } = await userComponentRenderHelper(renderPatterns[5]);
+
+      // Act
+      component = fixture.componentInstance;
+
+      // Assert
+      component.user$.subscribe((user) => {
+        expect(user).toEqual(renderPatterns[5].user);
+      });
     });
   });
 });
